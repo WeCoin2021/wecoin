@@ -1,0 +1,2 @@
+# wecoin
+cryptocurrency project
