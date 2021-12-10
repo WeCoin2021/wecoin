@@ -54,7 +54,7 @@ def login(request):
             # کاربر را به همراه یک پیام خطا به صفحه لاگین باز می گرداند
             # این پیغام خطا در قسمت تعبیه شده در بالای صفحه لاگین به نمایش در می آید
             messages.success(request, ("Invalid Username Or Password"))
-            return render(request, 'accounts/login.html', {'error':'Invalid Username Or Password'})
+            return render(request, 'app/home.html', {'error':'Invalid Username Or Password'})
     # اگر رکوئست با متد GET ارسال شده بود یعنی کاربر لینک صفحه لاگین را زده و میخواهد صفحه لاگین را ببیند
     else:
         return render(request, 'accounts/login.html')        

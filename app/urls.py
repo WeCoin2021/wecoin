@@ -11,6 +11,7 @@ urlpatterns = [
 	path('add_credit.html', views.add_credit, name="add_credit"),
 	path('get_credit.html', views.get_credit, name="get_credit"),
 	path('show_portfolio.html', views.show_portfolio, name="portfolio"),
+	path('show_history.html', views.show_history, name="history"),
     path('transition.html', views.transition, name="transition"),
 	path('buy_sell.html', views.buy_sell, name="buy_sell"),
 	path('add_get_credit.html', views.add_get_credit, name="credit"), 

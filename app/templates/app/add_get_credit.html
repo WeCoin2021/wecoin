@@ -2,24 +2,24 @@
 {% block content %}
 
 {% for item in credit %}
-<h4>your credit is $ {{item}} </h4></br>
+<h4>your credit is {{item}} USDT</h4></br>
 {% endfor %}
 
-Add dollar to your credit
+Add USDT(Tether) to your credit
 <br/>
 
 <form action="{% url 'add_credit' %}" class="form-inline my-2 my-lg-0" method="POST">
 		{% csrf_token %}
-      <input class="form-control mr-sm-2" type="number" min="0" step="0.00" value="0.00" placeholder="Add $ To credit" aria-label="Add" name="credit">
+      <input class="form-control mr-sm-2" type="number" min="0" step="0.00" value="0.00" placeholder="Add USDT To credit" aria-label="Add" name="credit">
       <!-- <input type="hidden" name="owner" value={{ request.user }} />  -->
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Add Credit</button>
     </form>
 <br/>
-get money
+get USDT(Tether)
 <br/>
 <form action="{% url 'get_credit' %}" class="form-inline my-2 my-lg-0" method="POST">
     {% csrf_token %}
-  <input class="form-control mr-sm-2" type="number" min="0" step="0.00" value="0.00" placeholder="get $ from credit" aria-label="get" name="credit">
+  <input class="form-control mr-sm-2" type="number" min="0" step="0.00" value="0.00" placeholder="get USDT from credit" aria-label="get" name="credit">
   <!-- <input type="hidden" name="owner" value={{ request.user }} />  -->
   <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">get Credit</button>
 </form>

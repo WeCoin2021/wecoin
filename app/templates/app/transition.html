@@ -5,15 +5,18 @@
     {{ list_item }}
   {% endfor %} -->
 
- <h2>{{ crypto_info.0 }}</h2>
- 
+ <h2>{{ crypto_info.0 }} </h2>
+ {% for item in credit %}
+ <p>your credit is {{item}} USDT</h4></p>
+ {% endfor %}
  
 <h4>buying crypto</h4>
 
 <form action="{% url 'add_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
 		{% csrf_token %}
       <input class="form-control mr-sm-2" type="text" value={{crypto_info.0}}  name="ticker" readonly>
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001" value="0.00001" placeholder="ticker quantity" aria-label="Add" name="quantity">
+      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="Add" name="quantity">
+      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price">
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">buy</button>
     </form>
 
@@ -23,51 +26,76 @@
 <form action="{% url 'delete_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
 		{% csrf_token %}
       <input class="form-control mr-sm-2" type="text" value={{crypto_info.0}} name="ticker" readonly>
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001" value="0.00001" placeholder="ticker quantity" aria-label="sell" name="quantity">
+      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="sell" name="quantity">
+      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price">
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">sell</button>
     </form>
 
-<br/>
+<br/><br/><br/>
 
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+
+<!-- TradingView Widget BEGIN for chart -->
+<div class="tradingview-widget-container" style="float: left;">
+  <div id="tradingview_b806c"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
   {
-  "width": "1100",
-  "height": "350",
-  "defaultColumn": "overview",
-  "defaultScreen": "top_gainers",
-  "showToolbar": true,
+  "width": 600,
+  "height": 500,
+  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "interval": "30",
+  "timezone": "Asia/Tehran",
+  "theme": "light",
+  "style": "1",
   "locale": "en",
-  "market": "crypto",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_b806c"
+  }
+  );
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
+
+<!-- TradingView Widget BEGIN for strong buy or sell -->
+<div class="tradingview-widget-container" style="float: right;">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/technicals/" rel="noopener" target="_blank"><span class="blue-text">Technical Analysis for BTCUSDT</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+  {
+  "interval": "1m",
+  "width": 500,
+  "isTransparent": false,
+  "height": 500,
+  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "showIntervalTabs": true,
+  "locale": "en",
   "colorTheme": "light"
 }
   </script>
 </div>
-</br></br>
+<!-- TradingView Widget END -->
 
-<!-- <table class="table table-striped table-bordered table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Company Name</th>
-      <th scope="col">Stock quantity</th>
-            
-    </tr>
-  </thead>
-  <tbody>
-{% if ticker %}
-  
-	  		
-  			{% for list_item in ticker %}
-  				<tr>
-					<th scope="row">{{ list_item.ticker }}</th>
-          <td>{{ list_item.quantity }}</td>
-				</tr>
-			{% endfor %}
-  
-  </tbody>
-</table>
-{% endif %}
-<br/><br/> -->
+
+<!-- TradingView Widget BEGIN for info -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Rates</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+  {
+  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "width": 1100,
+  "locale": "en",
+  "colorTheme": "light",
+  "isTransparent": false
+}
+</script>
+</div>
+<!-- TradingView Widget END -->
+
 
 {% endblock %}

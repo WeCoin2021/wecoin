@@ -1,18 +1,17 @@
 {% extends 'app/base.html' %}
-
 {% block content %}
 
-<h3>your wallet :</h3>
+<h3>Crypto history :</h3>
 <br/><br/>
 
 <table class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Crypto Name</th>
+        <th scope="col">type</th>
         <th scope="col">quantity</th>
-        <th scope="col">now price(USDT)</th>
-        <th scope="col">total price(USDT)</th>
-        <th scope="col">history</th>      
+        <th scope="col">price(USDT)</th>
+        <th scope="col">date & time</th>      
       </tr>
     </thead>
     <tbody>
@@ -20,11 +19,11 @@
                          
     {% for list_item in output %}
         <tr>
-           <th scope="row">{{ list_item.name }}</th>
-           <td>{{ list_item.number }}</td>
-           <td>{{ list_item.price  }}</td>
-           <td>{{ list_item.total  }}</td>
-           <td> <a href ="{% url 'history' %}?name={{ list_item.name }}">watch</a></td>
+           <th scope="row">{{ list_item.ticker}}</th>
+           <td>{{ list_item.type }}</td>
+           <td>{{ list_item.quantity }}</td>
+           <td>{{ list_item.Money_perone }}</td>
+           <td>{{ list_item.time }}</td>
         </tr>
     {% endfor %}
                                                  

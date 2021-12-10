@@ -1,11 +1,25 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<h2>select bellow:</h2>
+<h2>select your Market :</h2>
 </br></br>
-<form action="{% url 'buy_sell' %}" class="form-inline my-2 my-lg-0" method="POST">
-    {% csrf_token %}
-  <input class="form-control mr-sm-2" type="search" placeholder="crypto name" aria-label="Search" name="name">
-  <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">transaction</button>
+
+<form action="{% url 'buy_sell' %}" method="POST">
+  {% csrf_token %}
+  <!-- <label for="name">Choose Market:</label> -->
+  <select class="form-select" aria-label="Default select example" id="name" name="name" >
+    <option value="BTC">BTC-USDT</option>
+    <option value="ETH">ETH-USDT</option>
+    <option value="LTC">LTC-USDT</option>
+    <option value="XRP">XRP-USDT</option>
+    <option value="BNB">BNB-USDT</option>
+    <option value="XLM">XLM-USDT</option>
+    <option value="TRX">TRX-USDT</option>
+    <option value="DOGE">DOGE-USDT</option>
+    <option value="LINK">LINK-USDT</option>
+    <option value="DOT">DOT-USDT</option>
+    <option value="SHIB">SHIB-USDT</option>
+  </select><br><br>
+  <button type="submit">transact</button>
 </form>
 
 {% endblock %}
