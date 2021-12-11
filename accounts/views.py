@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.http import is_safe_url
 from django.contrib import messages
+from app.models import Store 
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -26,6 +27,9 @@ def signup(request):
                 user = User.objects.create_user(request.POST['username'], request.POST['email'] , request.POST['password1'])
                 # در خط زیر با کاربری که در خط بالا ایجاد کرده در سایت لاگین می کنه
                 auth.login(request,user)
+                # get the user defualf credit 0.00 (USDT)
+                temp = Store.objects.create(credit = 0.00,moneyowner = request.user)
+                temp.save()
                 # و کاربر لاگین کرده رو زارت میفرسته به صفحه اصلی. البته میشد اینجا با یک پیام به کاربر اعلام کنیم که ثبت نام با موفقیت انجام شد.
                 return redirect('home')
  
