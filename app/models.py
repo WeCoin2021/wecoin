@@ -34,3 +34,6 @@ class Transaction_history(models.Model):
         return str(self.Money_perone)
     def __str__(self):
         return str(self.time) 
+
+
+            

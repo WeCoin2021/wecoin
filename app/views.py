@@ -185,6 +185,7 @@ def show_portfolio(request) :
 		price = str(data2[name]["USDT"])
 		float_number = float ( ticker_item.quantity)
 		total = data2[name]["USDT"] * float_number
+		total=round(total  , 3);
 		senddata = {'name' :name  ,'number' : number , 'price' : price , 'total' : total}
 		output.append(senddata)
 	return render(request, 'app/show_portfolio.html', { 'output': output})	
