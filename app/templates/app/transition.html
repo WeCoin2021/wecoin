@@ -1,52 +1,41 @@
 {% extends 'app/base.html' %}
 {% block content %}
 
-<!--   {% for list_item in crypto_info %}
-    {{ list_item }}
-  {% endfor %} -->
-
- <h2>{{ crypto_info.0 }} </h2>
- {% for item in credit %}
- <p>your credit is {{item}} USDT</h4></p>
- {% endfor %}
- 
-<h4>buying crypto</h4>
-
-<form action="{% url 'add_stock' %}" class="form-inline my-2 my-lg-0" method="POST" >
+ <p>{% for index in crypto_quan %} exist: {{index}}{% endfor %} &nbsp &nbsp &nbsp  {% for item in credit %}
+   credit:{{item}} $
+  {% endfor %} <p>
+ <form action="{% url 'add_stock' %}" class="form-inline my-2 my-lg-0" method="POST" >
 		{% csrf_token %}
       <input class="form-control mr-sm-2" type="text" value={{crypto_info.0}}  name="ticker" readonly>
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="Add" name="quantity" id = "quanbuy"  onkeyup="count1_buy()">
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price" id = "pricbuy"  onkeyup="count1_buy()">
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" total(USDT)" aria-label="total money" name="totalM" id = "totabuy" onkeyup="count2_buy()">
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="Add" name="quantity" id = "quanbuy" onclick="func()" onkeyup="count1_buy()">
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price" id = "pricbuy" onclick="func()" onkeyup="count2_buy()">
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" total(USD)" aria-label="total money" name="totalM" id = "totabuy" onclick="func()" onkeyup="count3_buy()">
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">buy</button>
     </form>
-
-
-<h4>selling crypto</h4>
-
+ </br>
 <form action="{% url 'delete_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
 		{% csrf_token %}
       <input class="form-control mr-sm-2" type="text" value={{crypto_info.0}} name="ticker" readonly>
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="sell" name="quantity" id = "quansell" onkeyup="count1_sell()" >
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price" id = "pricsell" onkeyup="count1_sell()" >
-      <input class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" total(USDT)" aria-label="total money" name="totalM" id = "totasell" onkeyup="count2_sell()">
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" quantity" aria-label="sell" name="quantity" id = "quansell" onclick="func()" onkeyup="count1_sell()" >
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" price" aria-label="your price" name="price" id = "pricsell" onclick="func()" onkeyup="count2_sell()" >
+      <input required class="form-control mr-sm-2" type="number" min="0.00001" step="0.00001"  placeholder=" total(USD)" aria-label="total money" name="totalM" id = "totasell" onclick="func()" onkeyup="count3_sell()">
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">sell</button>
     </form>
 
-<br/><br/><br/>
+<br/>
 
 
 <!-- TradingView Widget BEGIN for chart -->
 <div class="tradingview-widget-container" style="float: left;">
   <div id="tradingview_b806c"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Chart</span></a> by TradingView</div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSD/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Chart</span></a> by TradingView</div>
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript">
   new TradingView.widget(
   {
   "width": 600,
-  "height": 500,
-  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "height": 300,
+  "symbol": "BINANCE:{{ crypto_info.0 }}USD",
   "interval": "30",
   "timezone": "Asia/Tehran",
   "theme": "light",
@@ -66,14 +55,14 @@
 <!-- TradingView Widget BEGIN for strong buy or sell -->
 <div class="tradingview-widget-container" style="float: right;">
   <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/technicals/" rel="noopener" target="_blank"><span class="blue-text">Technical Analysis for BTCUSDT</span></a> by TradingView</div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSD/technicals/" rel="noopener" target="_blank"><span class="blue-text">Technical Analysis for BTCUSDT</span></a> by TradingView</div>
   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
   {
   "interval": "1m",
   "width": 500,
   "isTransparent": false,
-  "height": 500,
-  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "height": 300,
+  "symbol": "BINANCE:{{ crypto_info.0 }}USD",
   "showIntervalTabs": true,
   "locale": "en",
   "colorTheme": "light"
@@ -86,10 +75,10 @@
 <!-- TradingView Widget BEGIN for info -->
 <div class="tradingview-widget-container">
   <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Rates</span></a> by TradingView</div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSD/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Rates</span></a> by TradingView</div>
   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
   {
-  "symbol": "BINANCE:{{ crypto_info.0 }}USDT",
+  "symbol": "BINANCE:{{ crypto_info.0 }}USD",
   "width": 1100,
   "locale": "en",
   "colorTheme": "light",
@@ -102,34 +91,115 @@
 
 {% endblock %}
 
-
 {% block js %}
-   <script type="text/javascript" >
-   function count1_buy() {
-     var quant = parseFloat(document.getElementById("quanbuy").value);
-     var price = parseFloat(document.getElementById("pricbuy").value);
-     if (quant && price) document.getElementById("totabuy").value = quant * price;
-   }
-   function count2_buy() {
-     var price = parseFloat(document.getElementById("pricbuy").value);
-     var total = parseFloat(document.getElementById("totabuy").value);
-     if (total && price) document.getElementById("quanbuy").value = total / price;
-    
-   }
+<script>
+  var tp ;
+  var tt ;
+		   
+  function func(){
+		tp = 0;
+		tt = 0;
+			
+  }
+		  
+  function count1_buy() {
+        var quan = parseFloat(document.getElementById("quanbuy").value);
+        var price = parseFloat(document.getElementById("pricbuy").value);
+        var total = parseFloat(document.getElementById("totabuy").value);
+		if(quan){
+	            if (price >= 0 && total >= 0 &&  tp == 0  && tt == 0) { document.getElementById("totabuy").value = quan*price; tp = 1;}
+				else if (price > 0 && tp == 0 && tt == 0) { document.getElementById("totabuy").value = quan*price; tp=1;}
+			    else if (price > 0 && tp == 1) { document.getElementById("totabuy").value = quan*price; tp=1;}
+				else if (total > 0 && tt == 0 && tp == 0) { document.getElementById("pricbuy").value = total/quan; tt=1;}
+			    else if (total > 0 && tt == 1 ){ document.getElementById("pricbuy").value = total/quan; tt=1;}
+				
+            }
+ 		else document.getElementById("totabuy").value = 0.0;		
+						          
+    }
+		  
+  function count2_buy() {
+        var quan = parseFloat(document.getElementById("quanbuy").value);
+        var price = parseFloat(document.getElementById("pricbuy").value);
+        var total = parseFloat(document.getElementById("totabuy").value);
+	    if(price){
+			    if (quan >= 0 && total >= 0 &&  tp == 0  && tt == 0) { document.getElementById("totabuy").value = quan*price; tp = 1;}
+				else if (quan > 0 && tp == 0 && tt == 0) { document.getElementById("totabuy").value = quan*price; tp=1;}
+			    else if (quan > 0 && tp == 1) { document.getElementById("totabuy").value = quan*price; tp=1;}
+				else if (total > 0 && tt == 0 && tp == 0) { document.getElementById("quanbuy").value = total/price; tt=1;}
+			    else if (total > 0 && tt == 1 ){ document.getElementById("quanbuy").value = total/price; tt=1;}
+				
+            }
+ 	    else document.getElementById("totabuy").value = 0.0;		
+						          
+    }
+		  
+  function count3_buy() {
+        var quan = parseFloat(document.getElementById("quanbuy").value);
+        var price = parseFloat(document.getElementById("pricbuy").value);
+        var total = parseFloat(document.getElementById("totabuy").value);
+	    if(total){
+			    if (quan >= 0 && total >= 0 &&  tp == 0  && tt == 0) { document.getElementById("totabuy").value = quan*price; tp = 1;}
+				else if (quan > 0 && tp == 0 && tt == 0) { document.getElementById("pricbuy").value = total*quan; tp=1;}
+			    else if (quan > 0 && tp == 1) { document.getElementById("pricbuy").value = total/quan; tp=1;}
+				else if (price > 0 && tt == 0 && tp == 0) { document.getElementById("quanbuy").value = total/price; tt=1;}
+			    else if (price > 0 && tt == 1 ){ document.getElementById("quanbuy").value = total/price; tt=1;}
+				
+        }
+ 			//else document.getElementById("quanbuy").value = 0.0;		
+						          
+    }
+		  
+  function count1_sell() {
+        var quan = parseFloat(document.getElementById("quansell").value);
+        var price = parseFloat(document.getElementById("pricsell").value);
+        var total = parseFloat(document.getElementById("totasell").value);
+		if(quan){
+			    if (price > 0 && total > 0 &&  tp == 0  && tt == 0) { document.getElementById("totasell").value = quan*price; tp = 1;}
+				else if (price > 0 && tp == 0 && tt == 0) { document.getElementById("totasell").value = quan*price; tp=1;}
+			    else if (price > 0 && tp == 1) { document.getElementById("totasell").value = quan*price; tp=1;}
+				else if (total > 0 && tt == 0 && tp == 0) { document.getElementById("pricsell").value = total/quan; tt=1;}
+			    else if (total > 0 && tt == 1 ){ document.getElementById("pricsell").value = total/quan; tt=1;}
+				
+        }
+ 	    else document.getElementById("totasell").value = 0.0;		
+						          
+  }
+		  
+  function count2_sell() {
+        var quan = parseFloat(document.getElementById("quansell").value);
+        var price = parseFloat(document.getElementById("pricsell").value);
+        var total = parseFloat(document.getElementById("totasell").value);
+		if(price){
+			    if (quan > 0 && total > 0 &&  tp == 0  && tt == 0) { document.getElementById("totasell").value = quan*price; tp = 1;}
+				else if (quan > 0 && tp == 0 && tt == 0) { document.getElementById("totasell").value = quan*price; tp=1;}
+			    else if (quan > 0 && tp == 1) { document.getElementById("totasell").value = quan*price; tp=1;}
+				else if (total > 0 && tt == 0 && tp == 0) { document.getElementById("quansell").value = total/price; tt=1;}
+			    else if (total > 0 && tt == 1 ){ document.getElementById("quansell").value = total/price; tt=1;}
+				
+        }
+ 	    else document.getElementById("totasell").value = 0.0;		
+						          
+    }
+		  
+  function count3_sell() {
+        var quan = parseFloat(document.getElementById("quansell").value);
+        var price = parseFloat(document.getElementById("pricsell").value);
+        var total = parseFloat(document.getElementById("totasell").value);
+	    if(total){
+			    if (quan > 0 && total > 0 &&  tp == 0  && tt == 0) { document.getElementById("totasell").value = quan*price; tp = 1;}
+				else if (quan > 0 && tp == 0 && tt == 0) { document.getElementById("pricsell").value = total*quan; tp=1;}
+			    else if (quan > 0 && tp == 1) { document.getElementById("pricsell").value = total/quan; tp=1;}
+				else if (price > 0 && tt == 0 && tp == 0) { document.getElementById("quansell").value = total/price; tt=1;}
+			    else if (price > 0 && tt == 1 ){ document.getElementById("quansell").value = total/price; tt=1;}
+				
+        }
+ 			//else document.getElementById("quansell").value = 0.0;		
+						          
+    }
 
-   function count1_sell() {
-     var quant = parseFloat(document.getElementById("quansell").value);
-     var price = parseFloat(document.getElementById("pricsell").value);
-     if (quant && price) document.getElementById("totasell").value = quant * price;
-   }
-   function count2_sell() {
-     var price = parseFloat(document.getElementById("pricsell").value);
-     var total = parseFloat(document.getElementById("totasell").value);
-     if (total && price) document.getElementById("quansell").value = total / price;
-    
-   } 
-
-
-    </script>
+</script>
 {% endblock %}
+    
+
 

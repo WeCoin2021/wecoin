@@ -21,15 +21,28 @@ def home(request):
 @login_required
 def transition(request):
   credit = Store.objects.filter(moneyowner=request.user)
-  return render(request, 'app/transition.html', {'credit':credit , 'crypto_info': crypto_info})	
+  crypto_quan = Crypto.objects.filter(owner=request.user , ticker = crypto_info[0])
+  return render(request, 'app/transition.html', {'credit':credit , 'crypto_info': crypto_info ,'crypto_quan' : crypto_quan} )	
 
 @login_required
 def buy_sell(request):
    if request.method=='POST':
-	   crypto_info[0] = request.POST['name']
+	   crypto_info[0] = request.POST['cname']
 	   return redirect('transition')
    else:
-	   return render(request,'app/buy_sell.html',{})
+	   change = []
+	   data = requests.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=250&page=1&sparkline=false")
+	   data2 = json.loads(data.content)
+	   change.extend (
+	   [float(data2[0]["price_change_percentage_24h"]),float(data2[1]["price_change_percentage_24h"]),
+	   float(data2[3]["price_change_percentage_24h"]),float(data2[17]["price_change_percentage_24h"]),
+	   float(data2[7]["price_change_percentage_24h"]),float(data2[2]["price_change_percentage_24h"]),
+	   float(data2[28]["price_change_percentage_24h"]),float(data2[20]["price_change_percentage_24h"]),
+	   float(data2[11]["price_change_percentage_24h"]),float(data2[18]["price_change_percentage_24h"]),
+	   float(data2[8]["price_change_percentage_24h"]),float(data2[12]["price_change_percentage_24h"])]
+	   ) 
+	   return render(request,'app/buy_sell.html',{'change' : change})
+
 
 @login_required
 def add_get_credit(request):
@@ -180,11 +193,11 @@ def show_portfolio(request) :
 	for ticker_item in temp :
 		name = str(ticker_item.ticker)
 		number = str(ticker_item.quantity)
-		data = requests.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms="+name+",USDT&tsyms=USDT,USDT")
+		data = requests.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms="+name+",USD&tsyms=USD,USD")
 		data2 = json.loads(data.content)
-		price = str(data2[name]["USDT"])
+		price = str(data2[name]["USD"])
 		float_number = float ( ticker_item.quantity)
-		total = data2[name]["USDT"] * float_number
+		total = data2[name]["USD"] * float_number
 		total=round(total  , 3);
 		senddata = {'name' :name  ,'number' : number , 'price' : price , 'total' : total}
 		output.append(senddata)

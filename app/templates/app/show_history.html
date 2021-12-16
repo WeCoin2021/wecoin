@@ -10,7 +10,7 @@
         <th scope="col">Crypto Name</th>
         <th scope="col">type</th>
         <th scope="col">quantity</th>
-        <th scope="col">price(USDT)</th>
+        <th scope="col">price(USD)</th>
         <th scope="col">date & time</th>      
       </tr>
     </thead>
@@ -20,7 +20,14 @@
     {% for list_item in output %}
         <tr>
            <th scope="row">{{ list_item.ticker}}</th>
-           <td>{{ list_item.type }}</td>
+           <td>
+               {% if list_item.type == "buy" %}
+                  <p><span style="color: rgb(10, 201, 10)">{{ list_item.type }}</span></p>
+               {% else %}
+                  <p><span style="color: red">{{ list_item.type }}</span></p>
+               {% endif %}
+
+           </td>
            <td>{{ list_item.quantity }}</td>
            <td>{{ list_item.Money_perone }}</td>
            <td>{{ list_item.time }}</td>

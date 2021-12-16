@@ -1,25 +1,134 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<h2>select your Market :</h2>
-</br></br>
+<p>select your Market :</p>
+</br>
 
-<form action="{% url 'buy_sell' %}" method="POST">
+<!-- <form action="{% url 'buy_sell' %}" method="POST">
   {% csrf_token %}
-  <!-- <label for="name">Choose Market:</label> -->
-  <select class="form-select" aria-label="Default select example" id="name" name="name" >
-    <option value="BTC">BTC-USDT</option>
-    <option value="ETH">ETH-USDT</option>
-    <option value="LTC">LTC-USDT</option>
-    <option value="XRP">XRP-USDT</option>
-    <option value="BNB">BNB-USDT</option>
-    <option value="XLM">XLM-USDT</option>
-    <option value="TRX">TRX-USDT</option>
-    <option value="DOGE">DOGE-USDT</option>
-    <option value="LINK">LINK-USDT</option>
-    <option value="DOT">DOT-USDT</option>
-    <option value="SHIB">SHIB-USDT</option>
+  
+  <select class="form-control form-control-lg" class="form-select" aria-label="Default select example" id="name" name="name" size = " 12" >
+    <option value="BTC">BTC-USD    </option>
+    <option value="ETH">ETH-USD    </option>
+    <option value="USDT">USDT-USD   </option>
+    <option value="LTC">LTC-USD    </option>
+    <option value="XRP">XRP-USD    </option>
+    <option value="BNB">BNB-USD</option>
+    <option value="XLM">XLM-USD</option>
+    <option value="TRX">TRX-USD</option>
+    <option value="DOGE">DOGE-USD</option>
+    <option value="LINK">LINK-USD</option>
+    <option value="DOT">DOT-USD</option>
+    <option value="SHIB">SHIB-USD</option>
   </select><br><br>
   <button type="submit">transact</button>
+</form> -->
+
+
+
+<div class="list-group">
+  <button data="BTC"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">BTC-USD   <p style="margin-right: 10px; ">
+    {% if change.0  >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.0 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.0 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="ETH"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">ETH-USD   <p style="margin-right: 10px; ">
+    {% if change.1 >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.1 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.1 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="USDT" type="button" class="list-group-item list-group-item-action"  onclick="func(this)">USDT-USD  <p style="margin-right: 10px; ">
+    {% if change.2  >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.2 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.2 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="LTC"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">LTC-USD   <p style="margin-right: 10px; ">
+    {% if change.3  >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.3 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.3 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="XRP"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">XRP-USD   <p style="margin-right: 10px; ">
+    {% if change.4   >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.4 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.4 }}%</span></p>
+    {% endif %}</p> </button> 
+
+  <button data="BNB"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">BNB-USD   <p style="margin-right: 10px; ">
+    {% if change.5 >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.5 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.5 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="XLM"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">XLM-USD   <p style="margin-right: 10px; ">
+    {% if change.6  >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.6 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.6 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="TRX"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">TRX-USD   <p style="margin-right: 10px; ">
+    {% if change.7   >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.7 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.7 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="DOGE" type="button" class="list-group-item list-group-item-action"  onclick="func(this)">DOGE-USD  <p style="margin-right: 10px; ">
+    {% if change.8   >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.8 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.8 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="LINK" type="button" class="list-group-item list-group-item-action"  onclick="func(this)">LINK-USD  <p style="margin-right: 10px; ">
+    {% if change.9   >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.9 }}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.9 }}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="DOT"  type="button" class="list-group-item list-group-item-action"  onclick="func(this)">DOT-USD   <p style="margin-right: 10px; ">
+    {% if change.10  >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.10}}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.10}}%</span></p>
+    {% endif %}</p> </button>
+
+  <button data="SHIB" type="button" class="list-group-item list-group-item-action"  onclick="func(this)">SHIB-USD  <p style="margin-right: 10px; ">
+    {% if change.11 >= 0 %}
+    <p><span style="color: rgb(10, 201, 10)">{{ change.11}}%</span></p>
+    {% else %}
+    <p><span style="color: red">{{ change.11}}%</span></p>
+    {% endif %}</p> </button>
+</div>
+</br></br>
+
+<form action="{% url 'buy_sell' %}" method="POST" id = "theForm">
+  {% csrf_token %}
+  <input type="hidden" id = "name" name = "cname" value="BTC">
+ 
 </form>
 
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+function func( clicked_object ){
+ name = clicked_object.getAttribute('data');
+ document.getElementById("name").value = name ;
+ document.getElementById("theForm").submit();
+}
+
+</script>
 {% endblock %}
