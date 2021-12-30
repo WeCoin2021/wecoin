@@ -35,13 +35,26 @@ def buy_sell(request):
 	   data2 = json.loads(data.content)
 	   change.extend (
 	   [float(data2[0]["price_change_percentage_24h"]),float(data2[1]["price_change_percentage_24h"]),
-	   float(data2[3]["price_change_percentage_24h"]),float(data2[17]["price_change_percentage_24h"]),
+	   float(data2[3]["price_change_percentage_24h"]),float(data2[18]["price_change_percentage_24h"]),
 	   float(data2[7]["price_change_percentage_24h"]),float(data2[2]["price_change_percentage_24h"]),
-	   float(data2[28]["price_change_percentage_24h"]),float(data2[20]["price_change_percentage_24h"]),
-	   float(data2[11]["price_change_percentage_24h"]),float(data2[18]["price_change_percentage_24h"]),
-	   float(data2[8]["price_change_percentage_24h"]),float(data2[12]["price_change_percentage_24h"])]
-	   ) 
-	   return render(request,'app/buy_sell.html',{'change' : change})
+	   float(data2[28]["price_change_percentage_24h"]),float(data2[25]["price_change_percentage_24h"]),
+	   float(data2[11]["price_change_percentage_24h"]),float(data2[20]["price_change_percentage_24h"]),
+	   float(data2[9]["price_change_percentage_24h"]),float(data2[26]["price_change_percentage_24h"])])
+	   
+	   picture = []
+	   picture.extend (
+	   [data2[0]["image"],data2[1]["image"],
+	   data2[3]["image"],data2[18]["image"],
+	   data2[7]["image"],data2[2]["image"],
+	   data2[28]["image"],data2[25]["image"],
+	   data2[11]["image"],data2[20]["image"],
+	   data2[9]["image"],data2[26]["image"]])
+	   
+	   name = []
+	   name.extend(['BTC','ETH','USDT','LTC','XRP','BNB','XLM','TRX','DOGE','LINK','DOT','UNI'])
+       
+	   fusion = zip(name,change,picture)
+	   return render(request,'app/buy_sell.html',{'fusion' : fusion})
 
 
 @login_required

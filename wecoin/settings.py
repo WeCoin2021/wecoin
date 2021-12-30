@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SESSION_COOKIE_AGE = 15 * 60
+SESSION_COOKIE_AGE = 30 * 60
 
 ROOT_URLCONF = 'wecoin.urls'
 

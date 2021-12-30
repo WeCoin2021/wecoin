@@ -1,16 +1,15 @@
 {% extends 'app/base.html' %}
 {% block content %}
 
-Welcome To </br>
-Crypto EDU </br>
-Traiding Platform 
+Welcome To WeCoin</br></br>
+<p4>learn how to trade crypto with wecoin :) </p4>
 </br></br>
 
 <div class="tradingview-widget-container">
 	<div class="tradingview-widget-container__widget"></div>
 	<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
 	{
-	"width": 1000,
+	"width": 1100,
 	"height": 450,
 	"defaultColumn": "overview",
 	"screener_type": "crypto_mkt",
@@ -23,28 +22,6 @@ Traiding Platform
 
   <br/><br/>
 
-<!-- {% if ticker %}
-	{{ ticker }}
-				 			
-				{% endif %}
-
-				{% if api %}
-				{% if api == "Error..." %}
-					There was a problem with your ticker symbol, please try again...
-				{% else %}
-					
-					<h1>{{ api.companyName }}</h1><br/>
-					Price: ${{ api.latestPrice }}<br/>
-					Previous Close: {{ api.previousClose }}<br/>
-					Market Cap: {{ api.marketCap }}<br/>
-					YTD Change: {{ api.ytdChange }}<br/>
-					52Wk High: {{ api.week52High }}<br/>
-					52 Wk Low: {{ api.week52Low }}<br/>
-
-					
-
-				{% endif %} 
-{% endif %} -->
 
 
 {% endblock %}
