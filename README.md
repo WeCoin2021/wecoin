@@ -1,2 +1,2 @@
 # wecoin
-cryptocurrency project
+cryptocurrency Exchange project
